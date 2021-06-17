@@ -68,9 +68,6 @@ $(document).ready(function () {
 
     // student vote
     $(document).on('click', '#vote-btn', function (e) {
-        // $('#vote-btn').hide();
-        // $('.choices').hide();
-        // $('.results-students').show();
         socket.emit('student-ready', true);
         socket.emit('vote', $("input[name='radio']:checked").val());
     });
@@ -89,7 +86,7 @@ $(document).ready(function () {
         socket.emit('question', $('textarea').val());
     }
 
-    /***** socket events *****/
+    /***** SOCKET ON EVENTS *****/
     //  question event
     socket.on('question', function (data) {
         if (data == null) {
@@ -166,6 +163,7 @@ $(document).ready(function () {
     // show the results on the students if the they click the vote submit button event
     socket.on('student-ready', function (data) {
         if (data == true) {
+            $('#vote-btn').hide();
             $('.student-choices').hide();
             $('.results-students').show();
         } else {
