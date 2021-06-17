@@ -33,8 +33,8 @@ $(document).ready(function () {
         initChoices();
     });
 
-    // listen for keypress event for realtime emmit of choices
-    $(document).on('keypress', 'input[type=text], textarea', function (e) {
+    // listen for keyup event for realtime emmit of choices
+    $(document).on('keyup', 'input[type=text], textarea', function (e) {
         socket.emit('typing', 'Your teacher is typing...');
         initChoices();
     });
