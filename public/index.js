@@ -1,6 +1,7 @@
 $(document).ready(function () {
     const socket = io();
 
+    // reset data when teacher stop collecting responses and proceed for new question and choices
     $(window).on('load', function () {
         socket.emit('typing', '');
         initChoices();
@@ -18,7 +19,7 @@ $(document).ready(function () {
         initChoices();
     });
 
-    //show delete choice button
+    //show delete choice button in mouseover
     $(document).on('mouseover', '.choices ul li', function (e) {
         $(this).children().last().show();
     });
@@ -32,19 +33,13 @@ $(document).ready(function () {
         initChoices();
     });
 
-    // question
-    // $(document).on('keypress', 'textarea', function (e) {
-    //     socket.emit('typing', 'Your teacher is typing...');
-    //     initChoices();
-    // });
-
-    // listen for keyup for realtime emmit of choice
+    // listen for keypress event for realtime emmit of choices
     $(document).on('keypress', 'input[type=text], textarea', function (e) {
         socket.emit('typing', 'Your teacher is typing...');
         initChoices();
     });
 
-    //collect response
+    // listen for click event for realtime emmit of choices
     $(document).on('click', '#collect-response', function (e) {
         $('textarea').hide();
         $('ul').hide();
@@ -53,7 +48,7 @@ $(document).ready(function () {
         $('#stop-response').show();
         $('.results-teacher').show();
 
-        socket.emit('ready', true);
+        socket.emit('teacher-ready', true);
         socket.emit('typing', '');
 
         initChoices();
@@ -61,7 +56,7 @@ $(document).ready(function () {
 
     //stop collecting response
     $(document).on('click', '#stop-response', function (e) {
-        socket.emit('ready', false);
+        socket.emit('teacher-stop', true);
         if (
             !alert(
                 `Your students can now see the last poll data.\n\n When you are done having your students see the last poll data, click on the button below to start over and create a new poll question.`
@@ -71,19 +66,16 @@ $(document).ready(function () {
         }
     });
 
-    //radio
-    // $(document).on('change', "input[type='radio']", function (e) {
-    //     console.log($("input[name='radio']:checked").val());
-    // });
-    // vote
+    // student vote
     $(document).on('click', '#vote-btn', function (e) {
         // $('#vote-btn').hide();
         // $('.choices').hide();
         // $('.results-students').show();
-        socket.emit('teacher-ready', true);
+        socket.emit('student-ready', true);
         socket.emit('vote', $("input[name='radio']:checked").val());
     });
 
+    // function to store choices and question and emmit it to the students
     function initChoices() {
         let currentChoices = [];
 
@@ -93,13 +85,12 @@ $(document).ready(function () {
                 choice: $(this).val()
             });
         });
-        console.log(currentChoices);
         socket.emit('choices', currentChoices);
         socket.emit('question', $('textarea').val());
     }
 
-    // Listen for events
-
+    /***** socket events *****/
+    //  question event
     socket.on('question', function (data) {
         if (data == null) {
             data = '';
@@ -108,6 +99,7 @@ $(document).ready(function () {
         $('.question').html(question);
     });
 
+    //  choices event
     socket.on('choices', function (data) {
         let html = '';
         for (let i = 0; i < data.length; i++) {
@@ -121,23 +113,22 @@ $(document).ready(function () {
         $('.student-choices').html(html);
     });
 
-    //total number of voters
+    //total number of voters event
     socket.on('voters', function (data) {
         if (data != null) {
             $('.total-voters').html(data);
         }
     });
 
-    //total number of who voted
+    //total number of who voted event
     socket.on('vote', function (data) {
         if (data != null) {
             $('.total-votes').html(data);
         }
     });
 
-    //results
+    //results event
     socket.on('results', function (data) {
-        console.log(data.choices[0].choice);
         let results = '';
         for (let i = 0; i < data.choices.length; i++) {
             results += `
@@ -156,21 +147,30 @@ $(document).ready(function () {
         $('.results-students').html(results);
     });
 
-    //typing
+    //typing event
     socket.on('typing', function (data) {
         $('.typing').html(`<p><em>${data}</em></p>`);
     });
 
-    //ready
+    // if teacher is ready event
     socket.on('teacher-ready', function (data) {
-        console.log(data);
         if (data == true) {
             $('.notice').hide();
             $('#vote-btn').show();
         } else {
-            $('.results-students').hide();
             $('.notice').show();
             $('#vote-btn').hide();
+        }
+    });
+
+    // show the results on the students if the they click the vote submit button event
+    socket.on('student-ready', function (data) {
+        if (data == true) {
+            $('.student-choices').hide();
+            $('.results-students').show();
+        } else {
+            $('.student-choices').show();
+            $('.results-students').hide();
         }
     });
 });

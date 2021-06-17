@@ -1,9 +1,7 @@
 const express = require('express');
 const app = express();
 app.use(express.static(__dirname + '/public'));
-// This sets the location where express will look for the ejs views
 app.set('views', __dirname + '/views');
-// Now lets set the view engine itself so that express knows that we are using ejs as opposed to another templating engine like jade
 app.set('view engine', 'ejs');
 const server = app.listen(1337);
 const io = require('socket.io')(server);
@@ -16,31 +14,36 @@ app.get('/aB33579', function (req, res) {
     res.render('student');
 });
 
-//variable to keep track and storage of the messages
-let messages = [];
+//variables to keep of poll data
 let question = '';
 let choices = [];
 let totalVoters = [];
-let isReady = false;
+let isReady = false; // if teacher is ready
+let alreadyVote = false; // if the student is already voted
 io.on('connection', function (socket) {
-    // Handle chat event
+    //push socket id to count current total of voters
     totalVoters.push(socket.id);
 
+    // init
     io.emit('question', question);
     io.emit('choices', choices);
     io.emit('voters', totalVoters.length - 1);
-    socket.emit('ready', isReady);
+    io.emit('teacher-ready', isReady);
+    io.emit('student-ready', isReady);
 
+    // emit question
     socket.on('question', function (data) {
         question = data;
         io.emit('question', question);
     });
 
+    // emit choices
     socket.on('choices', function (data) {
         choices = data;
         io.emit('choices', choices);
     });
 
+    // emit votes
     socket.on('vote', function (data) {
         choices[data].vote = choices[data].vote + 1;
         let totalVotes = 0;
@@ -51,25 +54,37 @@ io.on('connection', function (socket) {
         io.emit('results', { choices, totalVotes });
     });
 
-    //typing
+    // emit teacher if typing
     socket.on('typing', function (data) {
         socket.broadcast.emit('typing', data);
     });
 
-    //typing
+    // emit teacher if they click ready
     socket.on('teacher-ready', function (data) {
         isReady = data;
-        socket.emit('ready', isReady);
+        io.emit('teacher-ready', isReady);
     });
 
-    // test
-    socket.on('chat', function (data) {
-        messages.push(data);
-        io.socket.emit('chat', messages);
+    // emit teacher they click stop
+    socket.on('teacher-stop', function (data) {
+        if (data == true) {
+            alreadyVote = false;
+            isReady = false;
+            io.emit('teacher-ready', isReady);
+            io.emit('student-ready', alreadyVote);
+        }
     });
 
+    // emit if the student already voted or ready
+    socket.on('student-ready', function (data) {
+        alreadyVote = data;
+        socket.emit('student-ready', alreadyVote);
+    });
+
+    // subtract 1 for the total voters if they disconnect
     socket.on('disconnect', function () {
         totalVoters.pop();
+        //  subtract 1 from the total voters because the teaher is not included
         io.emit('voters', totalVoters.length - 1);
     });
 });

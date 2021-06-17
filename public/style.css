@@ -141,11 +141,12 @@ a {
     text-align: center;
 }
 
-/* .choices-area {
-    padding: 0 20px;
-} */
+/* question and choices styles */
 
-/* The container */
+.question{
+    padding: 0 30px;
+}
+
 .container {
     display: block;
     position: relative;
@@ -207,10 +208,6 @@ a {
     height: 8px;
     border-radius: 50%;
     background: white;
-}
-
-.question{
-    padding: 0 30px;
 }
 
 .notice {
