@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Live Poll</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="page-banner">
+                    <h1 class="question">
+                        <i class="fas fa-question"></i>
+                    </h1>
+
+                </div>
+            </header>
+            <div class="choices">
+                <h2 class="title">Choices</h2>
+                <div class="student-choices">
+                    <!-- choices will append here -->
+                </div>
+                <p class="typing"></p>
+                <ol class="results-students">
+                    <!-- results will insert here -->
+                </ol>
+            </div>
+            <button id="vote-btn">SUBMIT</button>
+            <p class="notice">You will be able to submit once the teacher is ready.</p>
+    </body>
+</html>

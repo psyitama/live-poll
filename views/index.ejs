@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Live Poll</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="page-banner">
+                    <h1><i class="fab fa-wpforms"></i>Google Forms Lite</h1>
+                    <p>Live Poll</p>
+                    <h2 class="question"></h2>
+                    <textarea
+                        autofocus
+                        placeholder="Enter question"
+                        cols="30"
+                        rows="5"
+                    ></textarea>
+                </div>
+            </header>
+            <div class="choices">
+                <h2 class="title">Choices</h2>
+                <ul>
+                    <!-- added choices  will insert here -->
+                </ul>
+                <ol class="results-teacher">
+                    <!-- results will insert here -->
+                    <p><em>Waiting for your student responses...</em></p>
+                </ol>
+            </div>
+            <button id="add-choice">Add a new choice</button>
+            <div id="collect-response">
+                <p>Start collecting responses</p>
+                <p>
+                    <b><span class="total-voters">0</span></b> live
+                </p>
+            </div>
+            <div id="stop-response">
+                <p>Stop collecting responses and share results</p>
+                <p>
+                    <b><span class="total-votes">0</span></b> voted
+                    <b><span class="total-voters">0</span></b> live
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

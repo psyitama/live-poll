@@ -1,0 +1,226 @@
+body {
+    font-family: Tahoma;
+    color: #444;
+    letter-spacing: 1px;
+}
+
+h1, h2 {
+    color: #1976d2;
+    font-weight: bold;
+}
+
+.wrapper {
+    width: 90%;
+    max-width: 960px;
+    margin: 20px auto;
+    border-radius: 6px;
+    box-shadow: 0px 1px 6px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    padding: 0 0 20px;
+    overflow: hidden;
+    border: 1px solid lightgray;
+}
+
+.page-banner {
+    background: #eee ;
+    padding: 10px 0;
+
+}
+
+    .page-banner h1, .page-banner p {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .page-banner i {
+        margin-right: 20px;
+    }
+
+    .page-banner textarea {
+        width: 90%;
+        max-width: 840px;
+        margin: 20px auto;
+        display: block;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        color: #444;
+    }
+
+.choices {
+    margin: 30px;
+}
+
+    .choices ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .choices li {
+        padding: 5px;
+        border-left: 5px solid #ddd;
+        margin: 20px 10px;
+    }
+
+    .choices li:hover {
+        border-color: #1976d2;
+    }
+
+    .choices input[type=text] {
+        width: 80%;
+        padding: 12px 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+    .choices .delete {
+        display: none;
+        float: right;
+        background: #d65640;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .choices .delete:hover {
+        background: #333;
+    }
+
+#add-choice,
+#vote-btn {
+    border: 1px solid #0d47a1;
+    background: #1976d2;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 40px;
+}
+
+#vote-btn {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+#stop-response,
+.results-students,
+.results-teacher {
+    display: none;
+}
+
+#collect-response,
+#stop-response {
+    border: 1px solid #009732;
+    color: black;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 20px 30px;
+}
+
+#collect-response{
+    background: #17e45b;
+}
+
+#stop-response {
+    background: #d65640;
+}
+
+#collect-response p,
+#stop-response p {
+    line-height: 3px;
+    text-align: center;
+}
+
+/* .choices-area {
+    padding: 0 20px;
+} */
+
+/* The container */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.question{
+    padding: 0 30px;
+}
+
+.notice {
+    background: #7a7b7c;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: white;
+    margin-left: 20px;
+    padding: 10px;
+    width: 50%;
+}
+
+
